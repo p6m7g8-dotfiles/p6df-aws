@@ -10,7 +10,12 @@ p6df::modules::aws::deps() {
     p6m7g8/p6df-docker
     p6m7g8/p6df-java p6m7g8/p6df-js p6m7g8/p6df-python p6m7g8/p6df-go p6m7g8/p6df-ruby p6m7g8/p6df-rust
     p6m7g8/p6aws
+    aws-samples/aws-lambda-layer-awscli
+    aws-samples/awscli-profile-credential-helpers
     aws/aws-codebuild-docker-images
+    aws/aws-nitro-enclaves-cli
+    awslabs/awscli-aliases
+    opensearch-project/opensearch-cli
   )
 }
 
@@ -39,30 +44,52 @@ p6df::modules::aws::vscodes() {
 ######################################################################
 p6df::modules::aws::external::brew() {
 
+  # base
+  brew tap aws/tap
   brew install awscli
+
+  # cloudformation / elastic beanstalk
+  brew install cloudformation-cli
+  brew install cfn-lint
+
   brew install awsebcli
 
-  brew tap aws/tap
-  brew install aws-sam-cli
-
-  brew install amazon-ecs-cli
+  # eks/ecs
   brew tap weaveworks/tap
   brew install weaveworks/tap/eksctl
   brew install fargatecli
 
-  brew install aws/tap/copilot-cli
+  brew install amazon-ecs-cli
 
+  # vpn
+  brew install aws-vpn-client --cask
+
+  # sam
+  brew install aws-sam-cli
+
+  # amplify
+  brew install amplify-cli
+
+  # copilot
+  brew install copilot-cli
+
+  # lightsail
+  brw install lightsailctl
+
+  # athena
+  brew install athenacli
+
+  # iam
   brew install aws-iam-authenticator
 
-  brew install cfn-lint
-
+  # logs
   brew install awslogs
 
-  brew install aws-shell
-
+  # shell/cli
   brew tap wallix/awless
   brew install awless
 
+  brew install aws-shell
   brew install aws-vault
 }
 
@@ -76,7 +103,6 @@ p6df::modules::aws::external::brew() {
 p6df::modules::aws::langs::js() {
 
   npm install -g aws-sdk
-  npm install -g @aws-amplify/cli --verbose
   nodenv rehash
 
   npm list --depth 0 -g
@@ -91,9 +117,10 @@ p6df::modules::aws::langs::js() {
 ######################################################################
 p6df::modules::aws::langs::ruby() {
 
-  gem install -v aws-sdk
+  echo gem install aws-sdk
+  gem install aws-sdk
   rbenv rehash
-}
+}s
 
 ######################################################################
 #<
@@ -140,6 +167,15 @@ p6df::modules::aws::langs::rust() {
   # cargo install cfn-resource-provider
 }
 
+p6df::modules::aws::langs::clones() {
+
+  local orgs=$(curl -s https://aws.github.io | grep https://github.com | grep -v project_name | sed -e 's,.*com/,,' -e 's,".*,,' -e 's,/,,' | sort)
+  local org
+  for org in $(p6_echo $orgs); do
+    p6_github_util_org_repos_clone "$org" "$P6_DFZ_SRC_FOCUSED_DIR"
+  done
+}
+
 ######################################################################
 #<
 #
@@ -150,6 +186,7 @@ p6df::modules::aws::langs::rust() {
 ######################################################################
 p6df::modules::aws::langs() {
 
+  # languages
   p6df::modules::aws::langs::js
   p6df::modules::aws::langs::python
   p6df::modules::aws::langs::go
@@ -161,6 +198,9 @@ p6df::modules::aws::langs() {
 
   # eks kubectl client
   curl -o $P6_DFZ_SRC_P6M7G8_DIR/p6df-aws/libexec/aws-eks-kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/bin/darwin/amd64/kubectl
+
+  # clones
+  p6df::modules::aws::langs::clones
 }
 
 ######################################################################
@@ -179,11 +219,11 @@ p6df::modules::aws::home::symlink() {
   (
     cd .aws
     for file in $P6_DFZ_SRC_DIR/$USER/home-private/aws/*; do
-      echo ln -fs $file .
+      echo X ln -fs $file .
       #      ln -fs $file .
     done
 
-    echo ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-aws/share/cli
+    echo X ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-aws/share/cli
     #    ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-aws/share/cli
   )
 }
