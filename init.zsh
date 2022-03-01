@@ -120,7 +120,7 @@ p6df::modules::aws::langs::ruby() {
   echo gem install aws-sdk
   gem install aws-sdk
   rbenv rehash
-}s
+}
 
 ######################################################################
 #<
