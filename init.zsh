@@ -102,10 +102,7 @@ p6df::modules::aws::external::brew() {
 ######################################################################
 p6df::modules::aws::langs::js() {
 
-  npm install -g aws-sdk
-  nodenv rehash
-
-  npm list --depth 0 -g
+  p6_js_npm_global_install "aws-sdk"
 }
 
 ######################################################################
