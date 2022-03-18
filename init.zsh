@@ -13,7 +13,7 @@ p6df::modules::aws::deps() {
     aws-samples/aws-lambda-layer-awscli
     aws-samples/awscli-profile-credential-helpers
     aws/aws-codebuild-docker-images
-    aws/aws-nitro-enclaves-cli
+#    aws/aws-nitro-enclaves-cli
     awslabs/awscli-aliases
     opensearch-project/opensearch-cli
   )
@@ -220,8 +220,8 @@ p6df::modules::aws::home::symlink() {
       ln -fs $file .
     done
 
-    echo ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-aws/share/cli
-    ln -fs $P6_DFZ_SRC_DIR/p6m7g8/p6df-aws/share/cli
+    echo ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-aws/share/cli
+    ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-aws/share/cli
   )
 }
 
@@ -235,7 +235,7 @@ p6df::modules::aws::home::symlink() {
 ######################################################################
 p6df::modules::aws::init() {
 
-  p6df::util::path_if "$P6_DFZ_SRC_DIR/aws/aws-codebuild-docker-images/local_builds"
+  p6df::util::path_if "$P6_DFZ_SRC_P6M7G8_DIR/aws/aws-codebuild-docker-images/local_builds"
   p6df::util::path_if "$P6_DFZ_SRC_P6M7G8_DIR/p6df-aws/libexec"
 }
 
