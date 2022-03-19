@@ -7,9 +7,9 @@
 ######################################################################
 p6df::modules::aws::deps() {
   ModuleDeps=(
-    p6m7g8/p6df-docker
-    p6m7g8/p6df-java p6m7g8/p6df-js p6m7g8/p6df-python p6m7g8/p6df-go p6m7g8/p6df-ruby p6m7g8/p6df-rust
-    p6m7g8/p6aws
+    p6m7g8-dotfiles/p6df-docker
+    p6m7g8-dotfiles/p6df-java p6m7g8-dotifles/p6df-js p6m7g8-dotfiles/p6df-python p6m7g8-dotfiles/p6df-go p6m7g8-dotfiles/p6df-ruby p6m7g8-dotfiles/p6df-rust
+    p6m7g8-dotfiles/p6aws
     aws-samples/aws-lambda-layer-awscli
     aws-samples/awscli-profile-credential-helpers
     aws/aws-codebuild-docker-images
@@ -57,8 +57,8 @@ p6df::modules::aws::external::brew() {
   # eks/ecs
   brew tap weaveworks/tap
   brew install weaveworks/tap/eksctl
-  brew install fargatecli
 
+  brew install fargatecli
   brew install amazon-ecs-cli
 
   # vpn
@@ -194,7 +194,8 @@ p6df::modules::aws::langs() {
   docker pull amazon/aws-codebuild-local:latest --disable-content-trust=false
 
   # eks kubectl client
-  curl -o $P6_DFZ_SRC_P6M7G8_DIR/p6df-aws/libexec/aws-eks-kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/bin/darwin/amd64/kubectl
+  curl -o $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec/aws-eks-kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/darwin/amd64/kubectl
+
 
   # clones
   p6df::modules::aws::langs::clones
@@ -220,8 +221,8 @@ p6df::modules::aws::home::symlink() {
       ln -fs $file .
     done
 
-    echo ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-aws/share/cli
-    ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-aws/share/cli
+    echo ln -fs $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/cli
+    ln -fs $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/cli
   )
 }
 
@@ -235,8 +236,8 @@ p6df::modules::aws::home::symlink() {
 ######################################################################
 p6df::modules::aws::init() {
 
-  p6df::util::path_if "$P6_DFZ_SRC_P6M7G8_DIR/aws/aws-codebuild-docker-images/local_builds"
-  p6df::util::path_if "$P6_DFZ_SRC_P6M7G8_DIR/p6df-aws/libexec"
+  p6df::util::path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/aws/aws-codebuild-docker-images/local_builds"
+  p6df::util::path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
 }
 
 ######################################################################
