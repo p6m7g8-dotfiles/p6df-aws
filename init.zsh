@@ -162,7 +162,7 @@ p6df::modules::aws::langs::clones() {
   local orgs=$(curl -s https://aws.github.io | grep https://github.com | grep -v project_name | sed -e 's,.*com/,,' -e 's,".*,,' -e 's,/,,' | sort)
   local org
   for org in $(p6_echo $orgs); do
-    p6_github_util_org_repos_clone "$org" "$P6_DFZ_SRC_FOCUSED_DIR"
+    p6_github_login_clone "$org" "$P6_DFZ_SRC_FOCUSED_DIR"
   done
 }
 
