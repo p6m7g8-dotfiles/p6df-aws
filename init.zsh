@@ -8,7 +8,7 @@
 p6df::modules::aws::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6df-docker
-    p6m7g8-dotfiles/p6df-java p6m7g8-dotifles/p6df-js p6m7g8-dotfiles/p6df-python p6m7g8-dotfiles/p6df-go p6m7g8-dotfiles/p6df-ruby p6m7g8-dotfiles/p6df-rust
+    p6m7g8-dotfiles/p6df-java p6m7g8-dotfiles/p6df-js p6m7g8-dotfiles/p6df-python p6m7g8-dotfiles/p6df-go p6m7g8-dotfiles/p6df-ruby p6m7g8-dotfiles/p6df-rust
     p6m7g8-dotfiles/p6aws
     aws-samples/aws-lambda-layer-awscli
     aws-samples/awscli-profile-credential-helpers
@@ -58,7 +58,6 @@ p6df::modules::aws::external::brew() {
   brew tap weaveworks/tap
   brew install weaveworks/tap/eksctl
 
-  brew install fargatecli
   brew install amazon-ecs-cli
 
   # vpn
@@ -66,9 +65,6 @@ p6df::modules::aws::external::brew() {
 
   # sam
   brew install aws-sam-cli
-
-  # amplify
-  brew install amplify-cli
 
   # copilot
   brew install copilot-cli
@@ -86,9 +82,6 @@ p6df::modules::aws::external::brew() {
   brew install awslogs
 
   # shell/cli
-  brew tap wallix/awless
-  brew install awless
-
   brew install aws-shell
   brew install aws-vault
 }
