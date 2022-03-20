@@ -39,11 +39,12 @@ bucket-policy =
 
 list-bucket =
   !f() {
+    local bucket="$1"
 
     . $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6aws/lib/cli/cli.sh
     p6_aws_cli_qload $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 
-    p6_aws_svc_s3_bucket_list
+    p6_aws_svc_s3_bucket_list "$bucket"
   }; f
 
 list-role-policies =
