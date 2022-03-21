@@ -204,16 +204,13 @@ p6df::modules::aws::langs() {
 ######################################################################
 p6df::modules::aws::home::symlink() {
 
-  p6_dir_rmrf .aws
-  p6_dir_mk .aws
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/.aws" ".aws"
 
   (
     p6_dir_cd .aws
     for file in $P6_DFZ_SRC_DIR/$USER/home-private/aws/*; do
       p6_file_symlink "$file" "."
     done
-
-    p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/cli" cli
   )
 }
 
