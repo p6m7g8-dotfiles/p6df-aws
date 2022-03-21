@@ -49,6 +49,7 @@
 - p6df::modules::aws::home::symlink()
 - p6df::modules::aws::init()
 - p6df::modules::aws::langs()
+- p6df::modules::aws::langs::clones()
 - p6df::modules::aws::langs::go()
 - p6df::modules::aws::langs::js()
 - p6df::modules::aws::langs::python()

@@ -157,6 +157,15 @@ p6df::modules::aws::langs::rust() {
   # cargo install cfn-resource-provider
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::langs::clones()
+#
+#  Depends:	 p6_github
+#  Environment:	 P6_DFZ_SRC_FOCUSED_DIR
+#>
+######################################################################
 p6df::modules::aws::langs::clones() {
 
   local orgs=$(curl -s https://aws.github.io | grep https://github.com | grep -v project_name | sed -e 's,.*com/,,' -e 's,".*,,' -e 's,/,,' | sort)
