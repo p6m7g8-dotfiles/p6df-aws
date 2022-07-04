@@ -107,7 +107,7 @@ p6df::modules::aws::langs::js() {
 ######################################################################
 p6df::modules::aws::langs::ruby() {
 
-  echo gem install aws-sdk
+  p6_msg "gem install aws-sdk"
   gem install aws-sdk
   rbenv rehash
 }
@@ -235,6 +235,18 @@ p6df::modules::aws::init() {
 
   p6df::util::path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/aws/aws-codebuild-docker-images/local_builds"
   p6df::util::path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
+
+  p6df::modules::aws::prompt::init
+}
+
+p6df::modules::aws::prompt::init() {
+
+   p6df::core::prompt::line::add "p6_lang_prompt_info"
+   p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
+   p6df::core::prompt::line::add "p6df::modules::aws::prompt::line"
+
+   p6_aws_cli_organization_activate "$P6_AWS_ORG"
+   functions | grep ^p6_awsa | cut -f 1 -d ' '
 }
 
 ######################################################################
@@ -282,3 +294,9 @@ p6_aws_prompt_info() {
 
   p6_return_str "$str"
 }
+
+p6_aws_env_prompt_info() {
+
+  p6_aws_cfg_show
+}
+
