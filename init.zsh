@@ -162,7 +162,6 @@ p6df::modules::aws::langs::rust() {
 #
 # Function: p6df::modules::aws::langs::clones()
 #
-#  Depends:	 p6_github
 #  Environment:	 P6_DFZ_SRC_FOCUSED_DIR
 #>
 ######################################################################
@@ -180,7 +179,7 @@ p6df::modules::aws::langs::clones() {
 #
 # Function: p6df::modules::aws::langs()
 #
-#  Environment:	 P6_DFZ_SRC_P6M7G8_DIR
+#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::aws::langs() {
@@ -208,7 +207,7 @@ p6df::modules::aws::langs() {
 #
 # Function: p6df::modules::aws::home::symlink()
 #
-#  Environment:	 P6_DFZ_SRC_DIR
+#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::aws::home::symlink() {
@@ -228,7 +227,7 @@ p6df::modules::aws::home::symlink() {
 #
 # Function: p6df::modules::aws::init()
 #
-#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DIR
+#  Environment:	 P6_AWS_ORG P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::aws::init() {
@@ -242,6 +241,13 @@ p6df::modules::aws::init() {
   functions | grep ^p6_awsa | cut -f 1 -d ' '
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::prompt::init()
+#
+#>
+######################################################################
 p6df::modules::aws::prompt::init() {
 
    p6df::core::prompt::line::add "p6_lang_prompt_info"
@@ -255,7 +261,6 @@ p6df::modules::aws::prompt::init() {
 #
 # Function: p6df::modules::aws::prompt::line()
 #
-#  Depends:	 p6_string
 #>
 ######################################################################
 p6df::modules::aws::prompt::line() {
@@ -271,7 +276,6 @@ p6df::modules::aws::prompt::line() {
 #  Returns:
 #	str - str
 #
-#  Depends:	 p6_string
 #>
 ######################################################################
 p6_aws_prompt_info() {
@@ -296,6 +300,13 @@ p6_aws_prompt_info() {
   p6_return_str "$str"
 }
 
+######################################################################
+#<
+#
+# Function: p6_aws_env_prompt_info()
+#
+#>
+######################################################################
 p6_aws_env_prompt_info() {
 
   p6_aws_cfg_show
