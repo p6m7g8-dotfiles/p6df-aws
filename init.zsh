@@ -196,10 +196,6 @@ p6df::modules::aws::langs() {
 
   # eks kubectl client
   curl -o $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec/aws-eks-kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/darwin/amd64/kubectl
-
-
-  # clones
-  p6df::modules::aws::langs::clones
 }
 
 ######################################################################
@@ -250,8 +246,6 @@ p6df::modules::aws::init() {
 ######################################################################
 p6df::modules::aws::prompt::init() {
 
-   p6df::core::prompt::line::add "p6_lang_prompt_info"
-   p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
    p6df::core::prompt::line::add "p6df::modules::aws::prompt::line"
 
 }
