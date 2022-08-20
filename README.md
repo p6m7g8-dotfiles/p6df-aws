@@ -44,10 +44,11 @@
 
 #### p6df-aws/init.zsh:
 
-- p6_aws_env_prompt_info()
 - p6df::modules::aws::deps()
+- p6df::modules::aws::env::prompt::info()
 - p6df::modules::aws::external::brew()
 - p6df::modules::aws::home::symlink()
+- p6df::modules::aws::home::symlink::creds()
 - p6df::modules::aws::init()
 - p6df::modules::aws::langs()
 - p6df::modules::aws::langs::clones()
@@ -56,10 +57,8 @@
 - p6df::modules::aws::langs::python()
 - p6df::modules::aws::langs::ruby()
 - p6df::modules::aws::langs::rust()
-- p6df::modules::aws::prompt::init()
-- p6df::modules::aws::prompt::line()
 - p6df::modules::aws::vscodes()
-- str str = p6_aws_prompt_info()
+- str str = p6df::modules::aws::prompt::line()
 
 
 

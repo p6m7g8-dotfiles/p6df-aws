@@ -259,8 +259,6 @@ p6df::modules::aws::init() {
   p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/aws/aws-codebuild-docker-images/local_builds"
   p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
 
-  p6df::modules::aws::prompt::init
-
   p6_aws_cli_organization_activate "$P6_AWS_ORG"
   functions | grep ^p6_awsa | cut -f 1 -d ' '
 
@@ -270,32 +268,7 @@ p6df::modules::aws::init() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::prompt::init()
-#
-#>
-######################################################################
-p6df::modules::aws::prompt::init() {
-
-  p6df::core::prompt::line::add "p6df::modules::aws::prompt::line"
-
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::prompt::line()
-#
-#>
-######################################################################
-p6df::modules::aws::prompt::line() {
-
-  p6_aws_prompt_info
-}
-
-######################################################################
-#<
-#
-# Function: str str = p6_aws_prompt_info()
+# Function: str str = p6df::modules::aws::prompt::line()
 #
 #  Returns:
 #	str - str
@@ -303,7 +276,7 @@ p6df::modules::aws::prompt::line() {
 #  Environment:	 P6_NL
 #>
 ######################################################################
-p6_aws_prompt_info() {
+p6df::modules::aws::prompt::line() {
 
   local active=$(p6_aws_cfg_prompt_info "_active")
   local source=$(p6_aws_cfg_prompt_info "_source")
@@ -327,11 +300,11 @@ p6_aws_prompt_info() {
 ######################################################################
 #<
 #
-# Function: p6_aws_env_prompt_info()
+# Function: p6df::modules::aws::env::prompt::info()
 #
 #>
 ######################################################################
-p6_aws_env_prompt_info() {
+p6df::modules::aws::env::prompt::info() {
 
   p6_aws_cfg_show
 }
