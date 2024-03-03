@@ -23,8 +23,7 @@ p6df::modules::aws::deps() {
 ######################################################################
 p6df::modules::aws::vscodes() {
 
-  code --install-extension amazonwebservices.aws-toolkit-vscode
-  code --install-extension aws-amplify.aws-amplify-vscode
+  code --install-extension AmazonWebServices.aws-toolkit-vscode
   code --install-extension iann0036.live-share-for-aws-cloud9
   code --install-extension vscode-aws-console.vscode-aws-console
   code --install-extension loganarnett.lambda-snippets
@@ -71,7 +70,7 @@ p6df::modules::aws::external::brew() {
   brew install athenacli
 
   # iam
-  brew install aws-iam-authenticator
+  brew install homebrew/core/aws-iam-authenticator
   brew install aws-sso-cli
 
   # logs
