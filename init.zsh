@@ -284,11 +284,12 @@ p6df::modules::aws::prompt::line() {
 
   local str
   local item
-  for item in "$active" "$source" "$saved" "$sts"; do
+  for item in "$active" "$source" "$saved"; do
     if ! p6_string_blank "$item"; then
       str=$(p6_string_append "$str" "$item" "$P6_NL")
     fi
   done
+  str=$(p6_string_append "$str" "$sts" " / ")
 
   str=$(p6_echo $str | perl -p -e 's,^\s*,,')
 
