@@ -552,3 +552,26 @@ p6df::modules::aws::svc::eks::cluster::set() {
 
   p6_return_void
 }
+
+######################################################################
+#<
+#
+# Function: p6df::modules::arkestro::util::aws::console()
+#
+#>
+######################################################################
+p6df::modules::aws::console() {
+
+  local sso_start_url=$(p6_aws_env_sso_start_url_active)
+  local sso_region="$(p6_aws_env_region_active)"
+  local role_name="$(p6_aws_svc_sts_account_role_name)"
+  local account_id="$(p6_aws_svc_sts_account_id)"
+
+  aws-sso-util console launch \
+	  --sso-start-url $sso_start_url \
+	  --sso-region $sso_region \
+	  --account-id $account_id \
+	  --role-name $role_name
+
+  p6_return_void
+}
