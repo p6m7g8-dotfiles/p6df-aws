@@ -72,13 +72,14 @@ p6df::modules::aws::external::brew() {
   # iam
   brew install homebrew/core/aws-iam-authenticator
   brew install aws-sso-cli
+  brew install aws-sso-util
+  brew install aws-vault
 
   # logs
   brew install awslogs
 
   # shell/cli
   brew install aws-shell
-  brew install aws-vault
 
   p6_return_void
 }
@@ -126,6 +127,7 @@ p6df::modules::aws::langs::python() {
   pip install boto3
   pip install taskcat
   pip install ec2instanceconnectcli
+  pip install aws-sso-lib
   pyenv rehash
 
   p6_return_void
@@ -294,6 +296,41 @@ p6df::modules::aws::prompt::line() {
   str=$(p6_echo $str | perl -p -e 's,^\s*,,')
 
   p6_return_str "$str"
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::sso::login()
+#
+#  Environment:	 AWS_PROFILE
+#>
+######################################################################
+p6df::modules::aws::sso::login() {
+
+ AWS_PROFILE=login aws-sso-util login
+
+ p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::sso::populate()
+#
+#  Environment:	 AWS_CONFIGURE_SSO_DEFAULT_PROFILE_NAME_SEPARATOR AWS_PROFILE PROCESS_FORMATTER_ARGS
+#>
+######################################################################
+p6df::modules::aws::sso::populate() {
+
+ AWS_PROFILE=login \
+	 AWS_CONFIGURE_SSO_DEFAULT_PROFILE_NAME_SEPARATOR=/ \
+	 PROCESS_FORMATTER_ARGS="account_namerole_name" \
+	 aws-sso-util \
+	 configure \
+	 populate
+
+ p6_return_void
 }
 
 ######################################################################

@@ -1,1 +1,2 @@
 libexec/aws-eks-kubectl
+share/.aws/cli/cache/

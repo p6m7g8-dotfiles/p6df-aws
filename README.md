@@ -57,6 +57,8 @@
 - p6df::modules::aws::langs::python()
 - p6df::modules::aws::langs::ruby()
 - p6df::modules::aws::langs::rust()
+- p6df::modules::aws::sso::login()
+- p6df::modules::aws::sso::populate()
 - p6df::modules::aws::svc::codebuild::projectbuild::list()
 - p6df::modules::aws::svc::ec2::ids::get()
 - p6df::modules::aws::svc::ec2::instances::list()
