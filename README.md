@@ -44,7 +44,7 @@
 
 #### p6df-aws/init.zsh:
 
-- p6df::modules::arkestro::util::aws::console()
+- p6df::modules::aws::console()
 - p6df::modules::aws::deps()
 - p6df::modules::aws::env::prompt::info()
 - p6df::modules::aws::external::brew()

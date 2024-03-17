@@ -291,7 +291,7 @@ p6df::modules::aws::prompt::line() {
       str=$(p6_string_append "$str" "$item" "$P6_NL")
     fi
   done
-  str=$(p6_string_append "$str" "$sts" " / ")
+  str=$(p6_string_append "$str" "$sts" " ")
 
   str=$(p6_echo $str | perl -p -e 's,^\s*,,')
 
@@ -505,6 +505,7 @@ p6df::modules::aws::svc::eks::cluster::set() {
 ######################################################################
 p6df::modules::aws::svc::sg::show() {
   local security_group_id="$1"
+
   p6_aws_svc_ec2_sg_show "$security_group_id" "$AWS_VPC_ID"
 }
 ######################################################################
@@ -556,7 +557,7 @@ p6df::modules::aws::svc::eks::cluster::set() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::arkestro::util::aws::console()
+# Function: p6df::modules::aws::console()
 #
 #>
 ######################################################################
