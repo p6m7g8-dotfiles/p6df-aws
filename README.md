@@ -44,7 +44,6 @@
 
 #### p6df-aws/init.zsh:
 
-- p6df::modules::aws::console()
 - p6df::modules::aws::deps()
 - p6df::modules::aws::env::prompt::info()
 - p6df::modules::aws::external::brew()
@@ -58,29 +57,55 @@
 - p6df::modules::aws::langs::python()
 - p6df::modules::aws::langs::ruby()
 - p6df::modules::aws::langs::rust()
-- p6df::modules::aws::sso::login()
-- p6df::modules::aws::sso::populate()
-- p6df::modules::aws::svc::codebuild::projectbuild::list()
-- p6df::modules::aws::svc::ec2::ids::get()
-- p6df::modules::aws::svc::ec2::instances::list()
-- p6df::modules::aws::svc::ec2::nat::gateway::show()
-- p6df::modules::aws::svc::ec2::network::init::list()
-- p6df::modules::aws::svc::ec2::rtbs::list()
-- p6df::modules::aws::svc::ec2::rtbs::show()
-- p6df::modules::aws::svc::ec2::subnet::get()
-- p6df::modules::aws::svc::ec2::subnets::list()
-- p6df::modules::aws::svc::eks::cluster::find()
-- p6df::modules::aws::svc::eks::cluster::set(cluster_name)
-- p6df::modules::aws::svc::eks::cluster::set(cluster_name)
-- p6df::modules::aws::svc::eks::cluster::status()
-- p6df::modules::aws::svc::sg::id_from_group_name()
-- p6df::modules::aws::svc::sg::show(security_group_id)
-- p6df::modules::aws::svc::sgs::list()
 - p6df::modules::aws::vscodes()
 - str str = p6df::modules::aws::prompt::line()
 
 
+### p6df-aws/lib:
 
+#### p6df-aws/lib/sso.sh:
+
+- p6df::modules::aws::sso::login()
+- p6df::modules::aws::sso::populate()
+- p6df::modules::aws::sso:console()
+
+
+### svc:
+
+#### svc/ec2.sh:
+
+- p6df::modules::aws::svc::ec2::instances::list()
+- p6df::modules::aws::svc::ec2::nat::gateway::show()
+- p6df::modules::aws::svc::ec2::network::init::list()
+- p6df::modules::aws::svc::ec2::rtb::show()
+- p6df::modules::aws::svc::ec2::rtbs::list()
+- p6df::modules::aws::svc::ec2::sg::id_from_tag_name()
+- p6df::modules::aws::svc::ec2::sg::show(security_group_id)
+- p6df::modules::aws::svc::ec2::sgs::list()
+- p6df::modules::aws::svc::ec2::subnet::get()
+- p6df::modules::aws::svc::ec2::subnetids::get()
+- p6df::modules::aws::svc::ec2::subnets::list()
+
+#### svc/eks.sh:
+
+- p6df::modules::aws::svc::eks::cluster::find()
+- p6df::modules::aws::svc::eks::cluster::set(cluster_name)
+- p6df::modules::aws::svc::eks::cluster::set(cluster_name)
+- p6df::modules::aws::svc::eks::cluster::status()
+
+
+
+## Hier
+```text
+.
+├── README.md
+├── sso.sh
+└── svc
+    ├── ec2.sh
+    └── eks.sh
+
+2 directories, 4 files
+```
 ## Author
 
 Philip M . Gollucci <pgollucci@p6m7g8.com>
