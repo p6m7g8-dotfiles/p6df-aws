@@ -42,44 +42,44 @@ p6df::modules::aws::external::brew() {
 
   # base
   brew tap aws/tap
-  brew install awscli
-  brew install aws-simple-ec2-cli
+  p6df::modules::homebrew::cli::brew::install awscli
+  p6df::modules::homebrew::cli::brew::install aws-simple-ec2-cli
 
   # cloudformation / elastic beanstalk
-  brew install cloudformation-cli
-  brew install cfn-lint
+  p6df::modules::homebrew::cli::brew::install cloudformation-cli
+  p6df::modules::homebrew::cli::brew::install cfn-lint
 
-  brew install awsebcli
+  p6df::modules::homebrew::cli::brew::install awsebcli
 
   # eks/ecs
   brew tap weaveworks/tap
-  brew install weaveworks/tap/eksctl
+  p6df::modules::homebrew::cli::brew::install weaveworks/tap/eksctl
 
-  brew install amazon-ecs-cli
+  p6df::modules::homebrew::cli::brew::install amazon-ecs-cli
 
   # vpn
-  brew install aws-vpn-client --cask
+  p6df::modules::homebrew::cli::brew::install aws-vpn-client --cask
 
   # copilot
-  brew install copilot-cli
+  p6df::modules::homebrew::cli::brew::install copilot-cli
 
   # lightsail
-  brew install lightsailctl
+  p6df::modules::homebrew::cli::brew::install lightsailctl
 
   # athena
-  brew install athenacli
+  p6df::modules::homebrew::cli::brew::install athenacli
 
   # iam
-  brew install homebrew/core/aws-iam-authenticator
-  brew install aws-sso-cli
-  brew install aws-sso-util
-  brew install aws-vault
+  p6df::modules::homebrew::cli::brew::install homebrew/core/aws-iam-authenticator
+  p6df::modules::homebrew::cli::brew::install aws-sso-cli
+  p6df::modules::homebrew::cli::brew::install aws-sso-util
+  p6df::modules::homebrew::cli::brew::install aws-vault
 
   # logs
-  brew install awslogs
+  p6df::modules::homebrew::cli::brew::install awslogs
 
   # shell/cli
-  brew install aws-shell
+  p6df::modules::homebrew::cli::brew::install aws-shell
 
   p6_return_void
 }
@@ -249,22 +249,26 @@ p6df::modules::aws::home::symlink::creds() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::init()
+# Function: p6df::modules::aws::init(_module, dir)
 #
-#  Environment:	 P6_AWS_ORG P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#  Args:
+#	_module -
+#	dir -
+#
+#  Environment:	 P6_AWS_ORG P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::aws::init() {
   local _module="$1"
   local dir="$2"
 
-  p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/aws/aws-codebuild-docker-images/local_builds"
+  p6_bootstrap "$dir"
+
+  p6_path_if "$P6_DFZ_SRC_DIR/aws/aws-codebuild-docker-images/local_builds"
   p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
 
-  p6_aws_cli_organization_activate "$P6_AWS_ORG"
+  p6_aws_cli_organization_on "$P6_AWS_ORG"
   functions | grep ^p6_awsa | cut -f 1 -d ' '
-
-  p6_bootstrap "$dir"
 
   p6_return_void
 }

@@ -10,8 +10,7 @@
   - [Summary](#summary)
   - [Contributing](#contributing)
   - [Code of Conduct](#code-of-conduct)
-  - [Changes](#changes)
-    - [Usage](#usage)
+  - [Usage](#usage)
   - [Author](#author)
 
 ### Badges
@@ -34,11 +33,13 @@
 
 - [Code of Conduct](https://github.com/p6m7g8/.github/blob/master/CODE_OF_CONDUCT.md)
 
-## Changes
-
-- [Change Log](CHANGELOG.md)
-
 ## Usage
+
+
+### Aliases
+
+
+### Functions
 
 ### p6df-aws:
 
@@ -49,7 +50,7 @@
 - p6df::modules::aws::external::brew()
 - p6df::modules::aws::home::symlink()
 - p6df::modules::aws::home::symlink::creds()
-- p6df::modules::aws::init()
+- p6df::modules::aws::init(_module, dir)
 - p6df::modules::aws::langs()
 - p6df::modules::aws::langs::clones()
 - p6df::modules::aws::langs::go()
@@ -65,9 +66,9 @@
 
 #### p6df-aws/lib/sso.sh:
 
+- p6df::modules::aws::sso::console()
 - p6df::modules::aws::sso::login()
 - p6df::modules::aws::sso::populate()
-- p6df::modules::aws::sso:console()
 
 
 ### svc:
@@ -98,13 +99,12 @@
 ## Hier
 ```text
 .
-├── README.md
 ├── sso.sh
 └── svc
     ├── ec2.sh
     └── eks.sh
 
-2 directories, 4 files
+2 directories, 3 files
 ```
 ## Author
 

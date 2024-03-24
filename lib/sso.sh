@@ -37,11 +37,11 @@ p6df::modules::aws::sso::populate() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::sso:console()
+# Function: p6df::modules::aws::sso::console()
 #
 #>
 ######################################################################
-p6df::modules::aws::sso:console() {
+p6df::modules::aws::sso::console() {
 
   local sso_start_url=$(p6_aws_env_sso_start_url_active)
   local sso_region="$(p6_aws_env_region_active)"
