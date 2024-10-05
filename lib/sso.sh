@@ -29,7 +29,8 @@ p6df::modules::aws::sso::populate() {
 	 PROCESS_FORMATTER_ARGS="account_namerole_name" \
 	 aws-sso-util \
 	 configure \
-	 populate
+	 populate \
+	 --region us-east-1
 
  p6_return_void
 }
