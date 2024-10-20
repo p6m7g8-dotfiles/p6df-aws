@@ -1,2 +1,5 @@
 libexec/aws-eks-kubectl
 share/.aws/cli/cache/
+share/.aws/config*
+share/.aws/credentials*
+share/.aws/sso/
