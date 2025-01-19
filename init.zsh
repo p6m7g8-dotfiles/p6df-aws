@@ -73,7 +73,7 @@ p6df::modules::aws::external::brew() {
   p6df::modules::homebrew::cli::brew::install homebrew/core/aws-iam-authenticator
   p6df::modules::homebrew::cli::brew::install aws-sso-cli
   p6df::modules::homebrew::cli::brew::install aws-sso-util
-  p6df::modules::homebrew::cli::brew::install aws-vault
+  p6df::modules::homebrew::cli::brew::install aws-vault --formula
 
   # logs
   p6df::modules::homebrew::cli::brew::install awslogs
