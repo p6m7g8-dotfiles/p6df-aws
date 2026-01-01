@@ -55,8 +55,6 @@ p6df::modules::aws::external::brew() {
   brew tap weaveworks/tap
   p6df::modules::homebrew::cli::brew::install weaveworks/tap/eksctl
 
-  p6df::modules::homebrew::cli::brew::install amazon-ecs-cli
-
   # vpn
   p6df::modules::homebrew::cli::brew::install aws-vpn-client --cask
 
