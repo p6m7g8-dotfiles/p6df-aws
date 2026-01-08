@@ -24,9 +24,8 @@ p6df::modules::aws::deps() {
 p6df::modules::aws::vscodes() {
 
   code --install-extension AmazonWebServices.aws-toolkit-vscode
-  code --install-extension iann0036.live-share-for-aws-cloud9
-  code --install-extension vscode-aws-console.vscode-aws-console
   code --install-extension loganarnett.lambda-snippets
+  code --install-extension aws-cloudformation.cloudformation-linter
 
   p6_return_void
 }
