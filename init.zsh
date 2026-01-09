@@ -57,9 +57,6 @@ p6df::modules::aws::external::brew() {
   # vpn
   p6df::modules::homebrew::cli::brew::install aws-vpn-client --cask
 
-  # copilot
-  p6df::modules::homebrew::cli::brew::install copilot-cli
-
   # lightsail
   p6df::modules::homebrew::cli::brew::install lightsailctl
 
