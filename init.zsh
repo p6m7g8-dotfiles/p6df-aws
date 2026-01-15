@@ -312,7 +312,7 @@ p6df::modules::aws::prompt::line() {
   done
   str=$(p6_string_append "$str" "$sts" " ")
 
-  str=$(p6_echo $str | perl -p -e 's,^\s*,,')
+  str=$(p6_echo "$str" | perl -p -e 's,^\s*,,')
 
   p6_return_str "$str"
 }
