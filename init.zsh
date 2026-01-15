@@ -262,9 +262,26 @@ p6df::modules::aws::init() {
   p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
 
   p6_aws_cli_organization_on "$P6_AWS_ORG"
-  functions | grep ^p6_awsa | cut -f 1 -d ' '
+  p6df::modules::aws::profiles::list
 
   p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: stream  = p6df::modules::aws::profiles::list()
+#
+#  Returns:
+#	stream - 
+#
+#>
+######################################################################
+p6df::modules::aws::profiles::list() {
+
+  functions | grep ^p6_awsa | cut -f 1 -d ' '
+
+  p6_return_stream
 }
 
 ######################################################################
