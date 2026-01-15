@@ -1,4 +1,4 @@
-# shellcheck shell=bash}
+# shellcheck shell=bash
 ######################################################################
 #<
 #
@@ -25,6 +25,7 @@ p6df::modules::aws::svc::eks::cluster::find() {
   p6_aws_svc_eks_cluster_find "$AWS_EKS_CLUSTER_NAME"
 }
 
+# shellcheck disable=2329
 ######################################################################
 #<
 #

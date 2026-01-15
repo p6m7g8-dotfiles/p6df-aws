@@ -5,8 +5,6 @@
 ## Badges
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Mergify](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges//p6df-aws/&style=flat)](https://mergify.io)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](<https://gitpod.io/#https://github.com//p6df-aws>)
 
 ## Summary
 
@@ -43,6 +41,7 @@
 - p6df::modules::aws::langs::rust()
 - p6df::modules::aws::vscodes()
 - str str = p6df::modules::aws::prompt::line()
+- stream  = p6df::modules::aws::profiles::list()
 
 ## p6df-aws/lib
 

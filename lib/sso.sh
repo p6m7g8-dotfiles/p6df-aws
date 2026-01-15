@@ -50,10 +50,10 @@ p6df::modules::aws::sso::console() {
   local account_id="$(p6_aws_svc_sts_account_id)"
 
   aws-sso-util console launch \
-	  --sso-start-url $sso_start_url \
-	  --sso-region $sso_region \
-	  --account-id $account_id \
-	  --role-name $role_name
+	  --sso-start-url "$sso_start_url" \
+	  --sso-region "$sso_region" \
+	  --account-id "$account_id" \
+	  --role-name "$role_name"
 
   p6_return_void
 }

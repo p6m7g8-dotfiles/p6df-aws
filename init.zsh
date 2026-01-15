@@ -172,7 +172,7 @@ p6df::modules::aws::langs::clones() {
 
   local orgs=$(curl -s https://aws.github.io | grep https://github.com | grep -v project_name | sed -e 's,.*com/,,' -e 's,".*,,' -e 's,/,,' | sort)
   local org
-  for org in $(p6_echo $orgs); do
+  for org in $(p6_echo "$orgs"); do
     p6df::modules::github::ext::parallel::clone "$org" "$P6_DFZ_SRC_FOCUSED_DIR"
   done
 
@@ -200,7 +200,7 @@ p6df::modules::aws::langs() {
   docker pull amazon/aws-codebuild-local:latest --disable-content-trust=false
 
   # eks kubectl client
-  curl -o $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec/aws-eks-kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/darwin/amd64/kubectl
+  curl -o "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR"/p6df-aws/libexec/aws-eks-kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/darwin/amd64/kubectl
 
   p6_return_void
 }
@@ -233,7 +233,7 @@ p6df::modules::aws::home::symlink() {
 p6df::modules::aws::home::symlink::creds() {
 
   local file
-  for file in $P6_DFZ_SRC_DIR/$USER/home-private/aws/*; do
+  for file in "$P6_DFZ_SRC_DIR/$USER"/home-private/aws/*; do
     p6_file_symlink "$file" "."
   done
 
@@ -262,9 +262,26 @@ p6df::modules::aws::init() {
   p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
 
   p6_aws_cli_organization_on "$P6_AWS_ORG"
-  functions | grep ^p6_awsa | cut -f 1 -d ' '
+  p6df::modules::aws::profiles::list
 
   p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: stream  = p6df::modules::aws::profiles::list()
+#
+#  Returns:
+#	stream - 
+#
+#>
+######################################################################
+p6df::modules::aws::profiles::list() {
+
+  functions | grep ^p6_awsa | cut -f 1 -d ' '
+
+  p6_return_stream
 }
 
 ######################################################################
@@ -295,7 +312,7 @@ p6df::modules::aws::prompt::line() {
   done
   str=$(p6_string_append "$str" "$sts" " ")
 
-  str=$(p6_echo $str | perl -p -e 's,^\s*,,')
+  str=$(p6_echo "$str" | perl -p -e 's,^\s*,,')
 
   p6_return_str "$str"
 }
