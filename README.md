@@ -27,7 +27,6 @@
 ### p6df-aws/init.zsh
 
 - p6df::modules::aws::deps()
-- p6df::modules::aws::env::prompt::info()
 - p6df::modules::aws::external::brew()
 - p6df::modules::aws::home::symlink()
 - p6df::modules::aws::home::symlink::creds()
@@ -40,7 +39,7 @@
 - p6df::modules::aws::langs::ruby()
 - p6df::modules::aws::langs::rust()
 - p6df::modules::aws::vscodes()
-- str str = p6df::modules::aws::prompt::line()
+- str str = p6df::modules::aws::prompt::mod()
 - stream  = p6df::modules::aws::profiles::list()
 
 ## p6df-aws/lib
