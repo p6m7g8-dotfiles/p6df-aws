@@ -113,16 +113,18 @@ p6df::modules::aws::langs::ruby() {
 #
 # Function: p6df::modules::aws::langs::python()
 #
+#  Environment:	 XXX
 #>
 ######################################################################
 p6df::modules::aws::langs::python() {
 
   # python
-  pip install boto3
-  pip install taskcat
-  pip install ec2instanceconnectcli
-  pip install aws-sso-lib
-  pyenv rehash
+  # XXX: Convert to uv
+  # pip install boto3
+  # pip install taskcat
+  # pip install ec2instanceconnectcli
+  # pip install aws-sso-lib
+  # pyenv rehash
 
   p6_return_void
 }
@@ -249,7 +251,7 @@ p6df::modules::aws::home::symlink::creds() {
 #	_module -
 #	dir -
 #
-#  Environment:	 P6_AWS_ORG P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::aws::init() {
@@ -260,9 +262,6 @@ p6df::modules::aws::init() {
 
   p6_path_if "$P6_DFZ_SRC_DIR/aws/aws-codebuild-docker-images/local_builds"
   p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
-
-  p6_aws_cli_organization_on "$P6_AWS_ORG"
-  p6df::modules::aws::profiles::list
 
   p6_return_void
 }
@@ -287,44 +286,35 @@ p6df::modules::aws::profiles::list() {
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::aws::prompt::line()
+# Function: str str = p6df::modules::aws::prompt::mod()
 #
 #  Returns:
 #	str - str
 #
-#  Environment:	 P6_NL
+#  Environment:	 AWS P6_DFZ_PROFILE_AWS P6_NL
 #>
 ######################################################################
-p6df::modules::aws::prompt::line() {
-
-  local active=$(p6_aws_cfg_prompt_info "_active")
-  local source=$(p6_aws_cfg_prompt_info "_source")
-  local saved=$(p6_aws_cfg_prompt_info "_saved")
-
-  local sts=$(p6_aws_sts_prompt_info "$(p6_aws_env_shared_credentials_file_active)")
+p6df::modules::aws::prompt::mod() {
 
   local str
-  local item
-  for item in "$active" "$source" "$saved"; do
-    if ! p6_string_blank "$item"; then
-      str=$(p6_string_append "$str" "$item" "$P6_NL")
-    fi
-  done
-  str=$(p6_string_append "$str" "$sts" " ")
+  if ! p6_string_blank "$P6_DFZ_PROFILE_AWS"; then
+    local prefix="AWS:\t\t  $P6_DFZ_PROFILE_AWS:"
+    str="$prefix"
+    local active=$(p6_aws_cfg_prompt_info "_active")
+    local source=$(p6_aws_cfg_prompt_info "_source")
+    local saved=$(p6_aws_cfg_prompt_info "_saved")
 
-  str=$(p6_echo "$str" | perl -p -e 's,^\s*,,')
+    local sts=$(p6_aws_sts_prompt_info "$(p6_aws_env_shared_credentials_file_active)")
+    local item
+    for item in "$active" "$source" "$saved"; do
+      if ! p6_string_blank "$item"; then
+        str=$(p6_string_append "$str" "$item" "$P6_NL")
+      fi
+    done
+    str=$(p6_string_append "$str" "$sts" " ")
+
+    str=$(p6_echo "$str" | perl -p -e 's,^\s*,,')
+  fi
 
   p6_return_str "$str"
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::env::prompt::info()
-#
-#>
-######################################################################
-p6df::modules::aws::env::prompt::info() {
-
-  p6_aws_cfg_show
 }
