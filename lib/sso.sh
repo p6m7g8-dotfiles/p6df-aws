@@ -4,7 +4,6 @@
 #
 # Function: p6df::modules::aws::sso::login()
 #
-#  Environment:	 AWS_PROFILE
 #>
 ######################################################################
 p6df::modules::aws::sso::login() {
@@ -19,7 +18,6 @@ p6df::modules::aws::sso::login() {
 #
 # Function: p6df::modules::aws::sso::populate()
 #
-#  Environment:	 AWS_CONFIGURE_SSO_DEFAULT_PROFILE_NAME_SEPARATOR AWS_PROFILE PROCESS_FORMATTER_ARGS
 #>
 ######################################################################
 p6df::modules::aws::sso::populate() {

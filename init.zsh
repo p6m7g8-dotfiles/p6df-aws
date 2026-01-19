@@ -113,7 +113,6 @@ p6df::modules::aws::langs::ruby() {
 #
 # Function: p6df::modules::aws::langs::python()
 #
-#  Environment:	 XXX
 #>
 ######################################################################
 p6df::modules::aws::langs::python() {
@@ -229,7 +228,7 @@ p6df::modules::aws::home::symlink() {
 #
 # Function: p6df::modules::aws::home::symlink::creds()
 #
-#  Environment:	 P6_DFZ_SRC_DIR
+#  Environment:	 P6_DFZ_SRC_DIR USER
 #>
 ######################################################################
 p6df::modules::aws::home::symlink::creds() {
@@ -291,7 +290,7 @@ p6df::modules::aws::profiles::list() {
 #  Returns:
 #	str - str
 #
-#  Environment:	 AWS P6_DFZ_PROFILE_AWS P6_NL
+#  Environment:	 P6_DFZ_PROFILE_AWS P6_NL
 #>
 ######################################################################
 p6df::modules::aws::prompt::mod() {
