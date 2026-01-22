@@ -9,7 +9,12 @@
 p6df::modules::aws::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6df-docker
-    p6m7g8-dotfiles/p6df-java p6m7g8-dotfiles/p6df-js p6m7g8-dotfiles/p6df-python p6m7g8-dotfiles/p6df-go p6m7g8-dotfiles/p6df-ruby p6m7g8-dotfiles/p6df-rust
+    p6m7g8-dotfiles/p6df-java
+    p6m7g8-dotfiles/p6df-js
+    p6m7g8-dotfiles/p6df-python
+    p6m7g8-dotfiles/p6df-go
+    p6m7g8-dotfiles/p6df-ruby
+    p6m7g8-dotfiles/p6df-rust
     p6m7g8-dotfiles/p6aws
   )
 }
@@ -298,7 +303,6 @@ p6df::modules::aws::prompt::mod() {
   local str
   if ! p6_string_blank "$P6_DFZ_PROFILE_AWS"; then
     local prefix="AWS:\t\t  $P6_DFZ_PROFILE_AWS:"
-    str="$prefix"
     local active=$(p6_aws_cfg_prompt_info "_active")
     local source=$(p6_aws_cfg_prompt_info "_source")
     local saved=$(p6_aws_cfg_prompt_info "_saved")
@@ -307,7 +311,7 @@ p6df::modules::aws::prompt::mod() {
     local item
     for item in "$active" "$source" "$saved"; do
       if ! p6_string_blank "$item"; then
-        str=$(p6_string_append "$str" "$item" "$P6_NL")
+        str=$(p6_string_append "$str" "$prefix $item" "$P6_NL")
       fi
     done
     str=$(p6_string_append "$str" "$sts" " ")
@@ -316,4 +320,47 @@ p6df::modules::aws::prompt::mod() {
   fi
 
   p6_return_str "$str"
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::profile::on(profile, [aws_org=])
+#
+#  Args:
+#	profile -
+#	OPTIONAL aws_org - []
+#
+#  Environment:	 P6_AWS_ORG P6_DFZ_PROFILE_AWS
+#>
+######################################################################
+p6df::modules::aws::profile::on() {
+  local profile="$1"
+  local aws_org="${2:-}"
+
+  p6_env_export "P6_DFZ_PROFILE_AWS" "$profile"
+
+  p6_env_export P6_AWS_ORG "$aws_org"
+  p6_aws_cli_organization_on "$P6_AWS_ORG"
+  p6df::modules::aws::profiles::list
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::profile::off()
+#
+#  Environment:	 P6_AWS_ORG P6_DFZ_PROFILE_AWS
+#>
+######################################################################
+p6df::modules::aws::profile::off() {
+
+    p6_env_export_un P6_DFZ_PROFILE_AWS
+    p6_env_export_un P6_AWS_ORG
+
+    p6_aws_cli_organization_off
+
+    p6_return_void
 }
