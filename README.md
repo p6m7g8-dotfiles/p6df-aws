@@ -47,6 +47,8 @@ TODO: Add a short summary of this module.
 - `p6df::modules::aws::langs::python()`
 - `p6df::modules::aws::langs::ruby()`
 - `p6df::modules::aws::langs::rust()`
+- `p6df::modules::aws::profile::off()`
+- `p6df::modules::aws::profile::on(profile, [aws_org=])`
 - `p6df::modules::aws::vscodes()`
 - `str str = p6df::modules::aws::prompt::mod()`
 - `stream  = p6df::modules::aws::profiles::list()`
