@@ -46,39 +46,39 @@ p6df::modules::aws::external::brew() {
 
   # base
   brew tap aws/tap
-  p6df::modules::homebrew::cli::brew::install awscli
-  p6df::modules::homebrew::cli::brew::install aws-simple-ec2-cli
+  p6df::core::homebrew::cli::brew::install awscli
+  p6df::core::homebrew::cli::brew::install aws-simple-ec2-cli
 
   # cloudformation / elastic beanstalk
-  p6df::modules::homebrew::cli::brew::install cloudformation-cli
-  p6df::modules::homebrew::cli::brew::install cfn-lint
+  p6df::core::homebrew::cli::brew::install cloudformation-cli
+  p6df::core::homebrew::cli::brew::install cfn-lint
 
-  p6df::modules::homebrew::cli::brew::install awsebcli
+  p6df::core::homebrew::cli::brew::install awsebcli
 
   # eks/ecs
   brew tap weaveworks/tap
-  p6df::modules::homebrew::cli::brew::install weaveworks/tap/eksctl
+  p6df::core::homebrew::cli::brew::install weaveworks/tap/eksctl
 
   # vpn
-  p6df::modules::homebrew::cli::brew::install aws-vpn-client --cask
+  p6df::core::homebrew::cli::brew::install aws-vpn-client --cask
 
   # lightsail
-  p6df::modules::homebrew::cli::brew::install lightsailctl
+  p6df::core::homebrew::cli::brew::install lightsailctl
 
   # athena
-  p6df::modules::homebrew::cli::brew::install athenacli
+  p6df::core::homebrew::cli::brew::install athenacli
 
   # iam
-  p6df::modules::homebrew::cli::brew::install homebrew/core/aws-iam-authenticator
-  p6df::modules::homebrew::cli::brew::install aws-sso-cli
-  p6df::modules::homebrew::cli::brew::install aws-sso-util
-  p6df::modules::homebrew::cli::brew::install aws-vault --formula
+  p6df::core::homebrew::cli::brew::install homebrew/core/aws-iam-authenticator
+  p6df::core::homebrew::cli::brew::install aws-sso-cli
+  p6df::core::homebrew::cli::brew::install aws-sso-util
+  p6df::core::homebrew::cli::brew::install aws-vault --formula
 
   # logs
-  p6df::modules::homebrew::cli::brew::install awslogs
+  p6df::core::homebrew::cli::brew::install awslogs
 
   # shell/cli
-  p6df::modules::homebrew::cli::brew::install aws-shell
+  p6df::core::homebrew::cli::brew::install aws-shell
 
   p6_return_void
 }
