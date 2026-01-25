@@ -176,7 +176,11 @@ p6df::modules::aws::langs::rust() {
 ######################################################################
 p6df::modules::aws::langs::clones() {
 
-  local orgs=$(curl -s https://aws.github.io | grep https://github.com | grep -v project_name | sed -e 's,.*com/,,' -e 's,".*,,' -e 's,/,,' | sort)
+  local orgs=$(curl -s https://aws.github.io | p6_filter_row_select "https://github.com" | p6_filter_row_exclude "project_name" \
+    | p6_filter_extract_after "com/" \
+    | p6_filter_extract_before "\"" \
+    | p6_filter_column_pluck 1 "/" \
+    | p6_filter_sort)
   local org
   for org in $(p6_echo "$orgs"); do
     p6df::modules::github::ext::parallel::clone "$org" "$P6_DFZ_SRC_FOCUSED_DIR"
@@ -282,7 +286,7 @@ p6df::modules::aws::init() {
 ######################################################################
 p6df::modules::aws::profiles::list() {
 
-  functions | grep ^p6_awsa | cut -f 1 -d ' '
+  functions | p6_filter_row_select_regex '^p6_awsa' | p6_filter_column_pluck 1
 
   p6_return_stream
 }
