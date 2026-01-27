@@ -28,9 +28,29 @@ p6df::modules::aws::deps() {
 ######################################################################
 p6df::modules::aws::vscodes() {
 
-  code --install-extension AmazonWebServices.aws-toolkit-vscode
-  code --install-extension loganarnett.lambda-snippets
-  code --install-extension aws-cloudformation.cloudformation-linter
+  p6df::modules::vscode::extension::install AmazonWebServices.aws-toolkit-vscode
+  p6df::modules::vscode::extension::install loganarnett.lambda-snippets
+  p6df::modules::vscode::extension::install aws-cloudformation.cloudformation-linter
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: str json = p6df::modules::aws::vscodes::config()
+#
+#  Returns:
+#	str - json
+#
+#>
+######################################################################
+p6df::modules::aws::vscodes::config() {
+
+  cat <<'EOF'
+  "aws.telemetry": false,
+  ]
+EOF
 
   p6_return_void
 }
