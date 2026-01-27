@@ -49,7 +49,6 @@ p6df::modules::aws::vscodes::config() {
 
   cat <<'EOF'
   "aws.telemetry": false,
-  ]
 EOF
 
   p6_return_void
