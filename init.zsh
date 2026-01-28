@@ -324,7 +324,7 @@ p6df::modules::aws::profiles::list() {
 p6df::modules::aws::prompt::mod() {
 
   local str
-  if ! p6_string_blank "$P6_DFZ_PROFILE_AWS"; then
+  if p6_string_blank_NOT "$P6_DFZ_PROFILE_AWS"; then
     local prefix="AWS:\t\t  $P6_DFZ_PROFILE_AWS:"
     local active=$(p6_aws_cfg_prompt_info "_active")
     local source=$(p6_aws_cfg_prompt_info "_source")
@@ -333,7 +333,7 @@ p6df::modules::aws::prompt::mod() {
     local sts=$(p6_aws_sts_prompt_info "$(p6_aws_env_shared_credentials_file_active)")
     local item
     for item in "$active" "$source" "$saved"; do
-      if ! p6_string_blank "$item"; then
+      if p6_string_blank_NOT "$item"; then
         str=$(p6_string_append "$str" "$prefix $item" "$P6_NL")
       fi
     done
