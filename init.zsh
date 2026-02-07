@@ -29,8 +29,8 @@ p6df::modules::aws::deps() {
 p6df::modules::aws::vscodes() {
 
   p6df::modules::vscode::extension::install AmazonWebServices.aws-toolkit-vscode
+  p6df::modules::vscode::extension::install davidanson.vscode-cfn-lint
   p6df::modules::vscode::extension::install loganarnett.lambda-snippets
-  p6df::modules::vscode::extension::install aws-cloudformation.cloudformation-linter
 
   p6_return_void
 }
@@ -44,8 +44,23 @@ p6df::modules::aws::vscodes() {
 ######################################################################
 p6df::modules::aws::vscodes::config() {
 
-  cat <<'EOF'
+ cat <<'EOF'
   "aws.telemetry": false,
+  "aws.suppressPrompts": true,
+  "cfnLint.runOnSave": true,
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
+      "cloudformation*.yml",
+      "cloudformation*.yaml",
+      "**/*cfn*.yml",
+      "**/*cfn*.yaml"
+    ],
+    "https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json": [
+      "template.yml",
+      "template.yaml",
+      "**/*sam*.yml",
+      "**/*sam*.yaml"
+    ]
 EOF
 
   p6_return_void
