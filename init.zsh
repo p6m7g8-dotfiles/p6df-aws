@@ -29,7 +29,7 @@ p6df::modules::aws::deps() {
 p6df::modules::aws::vscodes() {
 
   p6df::modules::vscode::extension::install AmazonWebServices.aws-toolkit-vscode
-  p6df::modules::vscode::extension::install davidanson.vscode-cfn-lint
+  p6df::modules::vscode::extension::install kddejong.vscode-cfn-lint
   p6df::modules::vscode::extension::install loganarnett.lambda-snippets
 
   p6_return_void
@@ -46,7 +46,6 @@ p6df::modules::aws::vscodes::config() {
 
  cat <<'EOF'
   "aws.telemetry": false,
-  "aws.suppressPrompts": true,
   "cfnLint.runOnSave": true,
   "yaml.schemas": {
     "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
@@ -61,6 +60,7 @@ p6df::modules::aws::vscodes::config() {
       "**/*sam*.yml",
       "**/*sam*.yaml"
     ]
+  }
 EOF
 
   p6_return_void
