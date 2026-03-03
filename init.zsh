@@ -256,27 +256,7 @@ p6df::modules::aws::langs() {
 ######################################################################
 p6df::modules::aws::home::symlink() {
 
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/.aws" ".aws"
-
-  p6_run_dir "$HOME/.aws" p6df::modules::aws::home::symlink::creds
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::home::symlink::creds()
-#
-#  Environment:	 P6_DFZ_SRC_DIR USER
-#>
-######################################################################
-p6df::modules::aws::home::symlink::creds() {
-
-  local file
-  for file in "$P6_DFZ_SRC_DIR/$USER"/home-private/aws/*; do
-    p6_file_symlink "$file" "."
-  done
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/.aws" "$HOME/.aws"
 
   p6_return_void
 }

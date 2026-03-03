@@ -41,8 +41,8 @@ TODO: Add a short summary of this module.
 - `p6df::modules::aws::home::symlink::creds()`
 - `p6df::modules::aws::init(_module, dir)`
   - Args:
-    - _module - 
-    - dir - 
+    - _module -
+    - dir -
 - `p6df::modules::aws::langs()`
 - `p6df::modules::aws::langs::clones()`
 - `p6df::modules::aws::langs::go()`
@@ -53,7 +53,7 @@ TODO: Add a short summary of this module.
 - `p6df::modules::aws::profile::off()`
 - `p6df::modules::aws::profile::on(profile, [aws_org=])`
   - Args:
-    - profile - 
+    - profile -
     - OPTIONAL aws_org - []
 - `p6df::modules::aws::vscodes()`
 - `p6df::modules::aws::vscodes::config()`
@@ -80,7 +80,7 @@ TODO: Add a short summary of this module.
 - `p6df::modules::aws::svc::ec2::sg::id_from_tag_name()`
 - `p6df::modules::aws::svc::ec2::sg::show(security_group_id)`
   - Args:
-    - security_group_id - 
+    - security_group_id -
 - `p6df::modules::aws::svc::ec2::sgs::list()`
 - `p6df::modules::aws::svc::ec2::subnet::get()`
 - `p6df::modules::aws::svc::ec2::subnetids::get()`
@@ -91,10 +91,10 @@ TODO: Add a short summary of this module.
 - `p6df::modules::aws::svc::eks::cluster::find()`
 - `p6df::modules::aws::svc::eks::cluster::set(cluster_name)`
   - Args:
-    - cluster_name - 
+    - cluster_name -
 - `p6df::modules::aws::svc::eks::cluster::set(cluster_name)`
   - Args:
-    - cluster_name - 
+    - cluster_name -
 - `p6df::modules::aws::svc::eks::cluster::status()`
 
 ## Hierarchy
