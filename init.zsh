@@ -379,3 +379,17 @@ p6df::modules::aws::profile::off() {
 
     p6_return_void
 }
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::mcp()
+#
+#>
+######################################################################
+p6df::modules::aws::mcp() {
+
+  p6_js_npm_global_install "@imazhar101/mcp-aws-server"
+
+  p6_return_void
+}
