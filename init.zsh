@@ -16,6 +16,8 @@ p6df::modules::aws::deps() {
     p6m7g8-dotfiles/p6df-ruby
     p6m7g8-dotfiles/p6df-rust
     p6m7g8-dotfiles/p6aws
+    zxkane/aws-skills
+    ahmedasmar/devops-claude-skills:aws-cost-optimization
   )
 }
 
