@@ -78,7 +78,7 @@ EOF
 p6df::modules::aws::external::brew() {
 
   # base
-  brew tap aws/tap
+  p6df::core::homebrew::cmd::brew tap aws/tap
   p6df::core::homebrew::cli::brew::install awscli
   p6df::core::homebrew::cli::brew::install aws-simple-ec2-cli
 
@@ -89,7 +89,7 @@ p6df::modules::aws::external::brew() {
   p6df::core::homebrew::cli::brew::install awsebcli
 
   # eks/ecs
-  brew tap weaveworks/tap
+  p6df::core::homebrew::cmd::brew tap weaveworks/tap
   p6df::core::homebrew::cli::brew::install weaveworks/tap/eksctl
 
   # vpn
@@ -209,7 +209,7 @@ p6df::modules::aws::langs::rust() {
 ######################################################################
 p6df::modules::aws::langs::clones() {
 
-  local orgs=$(curl -s https://aws.github.io | p6_filter_row_select "https://github.com" | p6_filter_row_exclude "project_name" \
+  local orgs=$(p6_curl -s "https://aws.github.io" | p6_filter_row_select "https://github.com" | p6_filter_row_exclude "project_name" \
     | p6_filter_extract_after "com/" \
     | p6_filter_extract_before "\"" \
     | p6_filter_column_pluck 1 "/" \
@@ -243,7 +243,7 @@ p6df::modules::aws::langs() {
   docker pull amazon/aws-codebuild-local:latest --disable-content-trust=false
 
   # eks kubectl client
-  curl -o "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR"/p6df-aws/libexec/aws-eks-kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/darwin/amd64/kubectl
+  p6_network_file_download "https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/darwin/amd64/kubectl" "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec/aws-eks-kubectl"
 
   p6_return_void
 }
@@ -333,7 +333,7 @@ p6df::modules::aws::prompt::mod() {
     done
     str=$(p6_string_append "$str" "$sts" " ")
 
-    str=$(p6_echo "$str" | perl -p -e 's,^\s*,,')
+    str=$(p6_echo "$str" | p6_filter_strip_leading_spaces)
   fi
 
   p6_return_str "$str"
