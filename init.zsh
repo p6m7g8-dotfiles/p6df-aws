@@ -266,6 +266,28 @@ p6df::modules::aws::home::symlink() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::aws::home::symlinks()
+#
+#  Environment:	 HOME P6_DFZ_SRC_DIR
+#>
+######################################################################
+p6df::modules::aws::home::symlinks() {
+
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-agentic-ai"                         "$HOME/.claude/skills/aws-agentic-ai"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-cdk-development"                    "$HOME/.claude/skills/aws-cdk-development"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-cost-operations"                    "$HOME/.claude/skills/aws-cost-operations"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-mcp-setup"                          "$HOME/.claude/skills/aws-mcp-setup"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-serverless-eda"                     "$HOME/.claude/skills/aws-serverless-eda"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/ahmedasmar/devops-claude-skills/aws-cost-optimization"                   "$HOME/.claude/skills/aws-cost-optimization"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/hashicorp/agent-skills/packer/builders/skills/aws-ami-builder"           "$HOME/.claude/skills/aws-ami-builder"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/hashicorp/agent-skills/packer/hcp/skills/push-to-registry"               "$HOME/.claude/skills/push-to-registry"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::aws::init(_module, dir)
 #
 #  Args:
