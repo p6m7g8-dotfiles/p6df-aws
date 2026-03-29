@@ -251,27 +251,14 @@ p6df::modules::aws::langs() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::home::symlink()
-#
-#  Environment:	 HOME P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-p6df::modules::aws::home::symlink() {
-
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/.aws" "$HOME/.aws"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: p6df::modules::aws::home::symlinks()
 #
-#  Environment:	 HOME P6_DFZ_SRC_DIR
+#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::aws::home::symlinks() {
+
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/.aws" "$HOME/.aws"
 
   p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-agentic-ai"                         "$HOME/.claude/skills/aws-agentic-ai"
   p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-cdk-development"                    "$HOME/.claude/skills/aws-cdk-development"
