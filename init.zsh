@@ -364,22 +364,22 @@ p6df::modules::aws::prompt::mod() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::profile::on(profile, [aws_org=])
+# Function: p6df::modules::aws::profile::on(profile, code)
 #
 #  Args:
 #	profile -
-#	OPTIONAL aws_org - []
+#	code - shell code block (export P6_AWS_ORG=...)
 #
 #  Environment:	 P6_AWS_ORG P6_DFZ_PROFILE_AWS
 #>
 ######################################################################
 p6df::modules::aws::profile::on() {
   local profile="$1"
-  local aws_org="${2:-}"
+  local code="$2"
+
+  p6_run_code "$code"
 
   p6_env_export "P6_DFZ_PROFILE_AWS" "$profile"
-
-  p6_env_export P6_AWS_ORG "$aws_org"
   p6_aws_cli_organization_on "$P6_AWS_ORG"
   p6df::modules::aws::profiles::list
 
@@ -389,19 +389,23 @@ p6df::modules::aws::profile::on() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::profile::off()
+# Function: p6df::modules::aws::profile::off(code)
+#
+#  Args:
+#	code - shell code block previously passed to profile::on
 #
 #  Environment:	 P6_AWS_ORG P6_DFZ_PROFILE_AWS
 #>
 ######################################################################
 p6df::modules::aws::profile::off() {
+  local code="$1"
 
-    p6_env_export_un P6_DFZ_PROFILE_AWS
-    p6_env_export_un P6_AWS_ORG
+  p6_env_unset_from_code "$code"
+  p6_env_export_un P6_DFZ_PROFILE_AWS
 
-    p6_aws_cli_organization_off
+  p6_aws_cli_organization_off
 
-    p6_return_void
+  p6_return_void
 }
 
 ######################################################################
@@ -414,6 +418,9 @@ p6df::modules::aws::profile::off() {
 p6df::modules::aws::mcp() {
 
   p6_js_npm_global_install "@imazhar101/mcp-aws-server"
+
+  p6df::modules::anthropic::mcp::server::add "aws" "npx" "-y" "@imazhar101/mcp-aws-server"
+  p6df::modules::openai::mcp::server::add "aws" "npx" "-y" "@imazhar101/mcp-aws-server"
 
   p6_return_void
 }
