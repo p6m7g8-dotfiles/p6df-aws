@@ -71,11 +71,11 @@ EOF
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::external::brew()
+# Function: p6df::modules::aws::external::brews()
 #
 #>
 ######################################################################
-p6df::modules::aws::external::brew() {
+p6df::modules::aws::external::brews() {
 
   # base
   p6df::core::homebrew::cmd::brew tap aws/tap
