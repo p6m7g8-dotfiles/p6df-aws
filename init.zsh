@@ -275,21 +275,15 @@ p6df::modules::aws::home::symlinks() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::init(_module, dir)
-#
-#  Args:
-#	_module -
-#	dir -
+# Function: p6df::modules::aws::path::init()
 #
 #  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
-p6df::modules::aws::init() {
+p6df::modules::aws::path::init() {
+
   local _module="$1"
-  local dir="$2"
-
-  p6_bootstrap "$dir"
-
+  local _dir="$2"
   p6_path_if "$P6_DFZ_SRC_DIR/aws/aws-codebuild-docker-images/local_builds"
   p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
 
@@ -316,34 +310,32 @@ p6df::modules::aws::profiles::list() {
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::aws::prompt::mod()
+# Function: str str = p6df::modules::aws::prompt::context()
 #
 #  Returns:
 #	str - str
 #
-#  Environment:	 P6_DFZ_PROFILE_AWS P6_NL
+#  Environment:	 P6_NL
 #>
 ######################################################################
-p6df::modules::aws::prompt::mod() {
+p6df::modules::aws::prompt::context() {
 
   local str
-  if p6_string_blank_NOT "$P6_DFZ_PROFILE_AWS"; then
-    local prefix="AWS:\t\t  $P6_DFZ_PROFILE_AWS:"
-    local active=$(p6_aws_cfg_prompt_info "_active")
-    local source=$(p6_aws_cfg_prompt_info "_source")
-    local saved=$(p6_aws_cfg_prompt_info "_saved")
+  local prefix="$(p6_string_space_pad "AWS:" 16)"
+  local active=$(p6_aws_cfg_prompt_info "_active")
+  local source=$(p6_aws_cfg_prompt_info "_source")
+  local saved=$(p6_aws_cfg_prompt_info "_saved")
 
-    local sts=$(p6_aws_sts_prompt_info "$(p6_aws_env_shared_credentials_file_active)")
-    local item
-    for item in "$active" "$source" "$saved"; do
-      if p6_string_blank_NOT "$item"; then
-        str=$(p6_string_append "$str" "$prefix $item" "$P6_NL")
-      fi
-    done
-    str=$(p6_string_append "$str" "$sts" " ")
+  local sts=$(p6_aws_sts_prompt_info "$(p6_aws_env_shared_credentials_file_active)")
+  local item
+  for item in "$active" "$source" "$saved"; do
+    if p6_string_blank_NOT "$item"; then
+      str=$(p6_string_append "$str" "$prefix $item" "$P6_NL")
+    fi
+  done
+  str=$(p6_string_append "$str" "$sts" " ")
 
-    str=$(p6_echo "$str" | p6_filter_strip_leading_spaces)
-  fi
+  str=$(p6_echo "$str" | p6_filter_strip_leading_spaces)
 
   p6_return_str "$str"
 }
@@ -355,9 +347,9 @@ p6df::modules::aws::prompt::mod() {
 #
 #  Args:
 #	profile -
-#	code - shell code block (export P6_AWS_ORG=...)
+#	code -
 #
-#  Environment:	 P6_AWS_ORG P6_DFZ_PROFILE_AWS
+#  Environment:	 P6_AWS_ORG
 #>
 ######################################################################
 p6df::modules::aws::profile::on() {
@@ -366,9 +358,8 @@ p6df::modules::aws::profile::on() {
 
   p6_run_code "$code"
 
-  p6_env_export "P6_DFZ_PROFILE_AWS" "$profile"
   p6_aws_cli_organization_on "$P6_AWS_ORG"
-  p6df::modules::aws::profiles::list
+#  p6df::modules::aws::profiles::list
 
   p6_return_void
 }
@@ -379,16 +370,14 @@ p6df::modules::aws::profile::on() {
 # Function: p6df::modules::aws::profile::off(code)
 #
 #  Args:
-#	code - shell code block previously passed to profile::on
+#	code -
 #
-#  Environment:	 P6_AWS_ORG P6_DFZ_PROFILE_AWS
 #>
 ######################################################################
 p6df::modules::aws::profile::off() {
   local code="$1"
 
   p6_env_unset_from_code "$code"
-  p6_env_export_un P6_DFZ_PROFILE_AWS
 
   p6_aws_cli_organization_off
 
