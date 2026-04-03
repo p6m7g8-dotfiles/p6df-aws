@@ -321,7 +321,7 @@ p6df::modules::aws::profiles::list() {
 p6df::modules::aws::prompt::context() {
 
   local str
-  local prefix="$(p6_string_space_pad "AWS:" 16)"
+  local prefix=$(p6_string_space_pad "AWS:" 16)
   local active=$(p6_aws_cfg_prompt_info "_active")
   local source=$(p6_aws_cfg_prompt_info "_source")
   local saved=$(p6_aws_cfg_prompt_info "_saved")
@@ -330,7 +330,7 @@ p6df::modules::aws::prompt::context() {
   local item
   for item in "$active" "$source" "$saved"; do
     if p6_string_blank_NOT "$item"; then
-      str=$(p6_string_append "$str" "$prefix $item" "$P6_NL")
+      str=$(p6_string_append "$str" "$prefix$item" "$P6_NL")
     fi
   done
   str=$(p6_string_append "$str" "$sts" " ")
