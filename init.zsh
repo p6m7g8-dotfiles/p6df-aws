@@ -24,15 +24,17 @@ p6df::modules::aws::deps() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::vscodes()
+# Function: p6df::modules::aws::path::init()
 #
+#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
-p6df::modules::aws::vscodes() {
+p6df::modules::aws::path::init() {
 
-  p6df::modules::vscode::extension::install AmazonWebServices.aws-toolkit-vscode
-  p6df::modules::vscode::extension::install kddejong.vscode-cfn-lint
-  p6df::modules::vscode::extension::install loganarnett.lambda-snippets
+  local _module="$1"
+  local _dir="$2"
+  p6_path_if "$P6_DFZ_SRC_DIR/aws/aws-codebuild-docker-images/local_builds"
+  p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
 
   p6_return_void
 }
@@ -40,30 +42,23 @@ p6df::modules::aws::vscodes() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::vscodes::config()
+# Function: p6df::modules::aws::home::symlinks()
 #
+#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
-p6df::modules::aws::vscodes::config() {
+p6df::modules::aws::home::symlinks() {
 
- cat <<'EOF'
-  "aws.telemetry": false,
-  "cfnLint.runOnSave": true,
-  "yaml.schemas": {
-    "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
-      "cloudformation*.yml",
-      "cloudformation*.yaml",
-      "**/*cfn*.yml",
-      "**/*cfn*.yaml"
-    ],
-    "https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json": [
-      "template.yml",
-      "template.yaml",
-      "**/*sam*.yml",
-      "**/*sam*.yaml"
-    ]
-  }
-EOF
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/.aws" "$HOME/.aws"
+
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-agentic-ai"                         "$HOME/.claude/skills/aws-agentic-ai"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-cdk-development"                    "$HOME/.claude/skills/aws-cdk-development"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-cost-operations"                    "$HOME/.claude/skills/aws-cost-operations"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-mcp-setup"                          "$HOME/.claude/skills/aws-mcp-setup"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-serverless-eda"                     "$HOME/.claude/skills/aws-serverless-eda"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/ahmedasmar/devops-claude-skills/aws-cost-optimization"                   "$HOME/.claude/skills/aws-cost-optimization"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/hashicorp/agent-skills/packer/builders/skills/aws-ami-builder"           "$HOME/.claude/skills/aws-ami-builder"
+  p6_file_symlink "$P6_DFZ_SRC_DIR/hashicorp/agent-skills/packer/hcp/skills/push-to-registry"               "$HOME/.claude/skills/push-to-registry"
 
   p6_return_void
 }
@@ -112,6 +107,139 @@ p6df::modules::aws::external::brews() {
 
   # shell/cli
   p6df::core::homebrew::cli::brew::install aws-shell
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::langs()
+#
+#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
+######################################################################
+p6df::modules::aws::langs() {
+
+  # languages
+  p6df::modules::aws::langs::js
+  p6df::modules::aws::langs::python
+  p6df::modules::aws::langs::go
+  p6df::modules::aws::langs::ruby
+  p6df::modules::aws::langs::rust
+
+  # codebuild local
+  docker pull amazon/aws-codebuild-local:latest --disable-content-trust=false
+
+  # eks kubectl client
+  p6_network_file_download "https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/darwin/amd64/kubectl" "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec/aws-eks-kubectl"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::mcp()
+#
+#>
+######################################################################
+p6df::modules::aws::mcp() {
+
+  p6_js_npm_global_install "@imazhar101/mcp-aws-server"
+
+  p6df::modules::anthropic::mcp::server::add "aws" "npx" "-y" "@imazhar101/mcp-aws-server"
+  p6df::modules::openai::mcp::server::add "aws" "npx" "-y" "@imazhar101/mcp-aws-server"
+
+  p6_return_void
+}
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::vscodes()
+#
+#>
+######################################################################
+p6df::modules::aws::vscodes() {
+
+  p6df::modules::vscode::extension::install AmazonWebServices.aws-toolkit-vscode
+  p6df::modules::vscode::extension::install kddejong.vscode-cfn-lint
+  p6df::modules::vscode::extension::install loganarnett.lambda-snippets
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::vscodes::config()
+#
+#>
+######################################################################
+p6df::modules::aws::vscodes::config() {
+
+ cat <<'EOF'
+  "aws.telemetry": false,
+  "cfnLint.runOnSave": true,
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": [
+      "cloudformation*.yml",
+      "cloudformation*.yaml",
+      "**/*cfn*.yml",
+      "**/*cfn*.yaml"
+    ],
+    "https://raw.githubusercontent.com/aws/serverless-application-model/main/samtranslator/schema/schema.json": [
+      "template.yml",
+      "template.yaml",
+      "**/*sam*.yml",
+      "**/*sam*.yaml"
+    ]
+  }
+EOF
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::profile::on(profile, code)
+#
+#  Args:
+#	profile -
+#	code -
+#
+#  Environment:	 P6_AWS_ORG
+#>
+######################################################################
+p6df::modules::aws::profile::on() {
+  local profile="$1"
+  local code="$2"
+
+  p6_run_code "$code"
+
+  p6_aws_cli_organization_on "$P6_AWS_ORG"
+#  p6df::modules::aws::profiles::list
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::profile::off(code)
+#
+#  Args:
+#	code -
+#
+#>
+######################################################################
+p6df::modules::aws::profile::off() {
+  local code="$1"
+
+  p6_env_unset_from_code "$code"
+
+  p6_aws_cli_organization_off
 
   p6_return_void
 }
@@ -225,74 +353,6 @@ p6df::modules::aws::langs::clones() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::langs()
-#
-#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-p6df::modules::aws::langs() {
-
-  # languages
-  p6df::modules::aws::langs::js
-  p6df::modules::aws::langs::python
-  p6df::modules::aws::langs::go
-  p6df::modules::aws::langs::ruby
-  p6df::modules::aws::langs::rust
-
-  # codebuild local
-  docker pull amazon/aws-codebuild-local:latest --disable-content-trust=false
-
-  # eks kubectl client
-  p6_network_file_download "https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/darwin/amd64/kubectl" "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec/aws-eks-kubectl"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::home::symlinks()
-#
-#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-p6df::modules::aws::home::symlinks() {
-
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/share/.aws" "$HOME/.aws"
-
-  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-agentic-ai"                         "$HOME/.claude/skills/aws-agentic-ai"
-  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-cdk-development"                    "$HOME/.claude/skills/aws-cdk-development"
-  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-cost-operations"                    "$HOME/.claude/skills/aws-cost-operations"
-  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-mcp-setup"                          "$HOME/.claude/skills/aws-mcp-setup"
-  p6_file_symlink "$P6_DFZ_SRC_DIR/zxkane/aws-skills/.claude/skills/aws-serverless-eda"                     "$HOME/.claude/skills/aws-serverless-eda"
-  p6_file_symlink "$P6_DFZ_SRC_DIR/ahmedasmar/devops-claude-skills/aws-cost-optimization"                   "$HOME/.claude/skills/aws-cost-optimization"
-  p6_file_symlink "$P6_DFZ_SRC_DIR/hashicorp/agent-skills/packer/builders/skills/aws-ami-builder"           "$HOME/.claude/skills/aws-ami-builder"
-  p6_file_symlink "$P6_DFZ_SRC_DIR/hashicorp/agent-skills/packer/hcp/skills/push-to-registry"               "$HOME/.claude/skills/push-to-registry"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::path::init()
-#
-#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-p6df::modules::aws::path::init() {
-
-  local _module="$1"
-  local _dir="$2"
-  p6_path_if "$P6_DFZ_SRC_DIR/aws/aws-codebuild-docker-images/local_builds"
-  p6_path_if "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-aws/libexec"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: stream  = p6df::modules::aws::profiles::list()
 #
 #  Returns:
@@ -340,63 +400,3 @@ p6df::modules::aws::prompt::context() {
   p6_return_str "$str"
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::profile::on(profile, code)
-#
-#  Args:
-#	profile -
-#	code -
-#
-#  Environment:	 P6_AWS_ORG
-#>
-######################################################################
-p6df::modules::aws::profile::on() {
-  local profile="$1"
-  local code="$2"
-
-  p6_run_code "$code"
-
-  p6_aws_cli_organization_on "$P6_AWS_ORG"
-#  p6df::modules::aws::profiles::list
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::profile::off(code)
-#
-#  Args:
-#	code -
-#
-#>
-######################################################################
-p6df::modules::aws::profile::off() {
-  local code="$1"
-
-  p6_env_unset_from_code "$code"
-
-  p6_aws_cli_organization_off
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::mcp()
-#
-#>
-######################################################################
-p6df::modules::aws::mcp() {
-
-  p6_js_npm_global_install "@imazhar101/mcp-aws-server"
-
-  p6df::modules::anthropic::mcp::server::add "aws" "npx" "-y" "@imazhar101/mcp-aws-server"
-  p6df::modules::openai::mcp::server::add "aws" "npx" "-y" "@imazhar101/mcp-aws-server"
-
-  p6_return_void
-}
