@@ -1,5 +1,11 @@
 # shellcheck shell=bash
 ######################################################################
+#<
+#
+# Function: p6df::modules::aws::deps()
+#
+#>
+######################################################################
 p6df::modules::aws::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6df-docker
@@ -16,6 +22,13 @@ p6df::modules::aws::deps() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::aws::path::init()
+#
+#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
+######################################################################
 p6df::modules::aws::path::init() {
 
   local _module="$1"
@@ -26,6 +39,13 @@ p6df::modules::aws::path::init() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::home::symlinks()
+#
+#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
 ######################################################################
 p6df::modules::aws::home::symlinks() {
 
@@ -43,6 +63,12 @@ p6df::modules::aws::home::symlinks() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::external::brews()
+#
+#>
 ######################################################################
 p6df::modules::aws::external::brews() {
 
@@ -86,6 +112,13 @@ p6df::modules::aws::external::brews() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::aws::langs()
+#
+#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
+######################################################################
 p6df::modules::aws::langs() {
 
   # languages
@@ -105,6 +138,12 @@ p6df::modules::aws::langs() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::aws::mcp()
+#
+#>
+######################################################################
 p6df::modules::aws::mcp() {
 
   p6_js_npm_global_install "@imazhar101/mcp-aws-server"
@@ -115,6 +154,12 @@ p6df::modules::aws::mcp() {
   p6_return_void
 }
 ######################################################################
+#<
+#
+# Function: p6df::modules::aws::vscodes()
+#
+#>
+######################################################################
 p6df::modules::aws::vscodes() {
 
   p6df::modules::vscode::extension::install AmazonWebServices.aws-toolkit-vscode
@@ -124,6 +169,12 @@ p6df::modules::aws::vscodes() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::aws::vscodes::config()
+#
+#>
 ######################################################################
 p6df::modules::aws::vscodes::config() {
 
@@ -150,6 +201,17 @@ EOF
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::aws::profile::on(profile, code)
+#
+#  Args:
+#	profile -
+#	code -
+#
+#  Environment:	 P6_AWS_ORG
+#>
+######################################################################
 p6df::modules::aws::profile::on() {
   local profile="$1"
   local code="$2"
@@ -163,6 +225,15 @@ p6df::modules::aws::profile::on() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::aws::profile::off(code)
+#
+#  Args:
+#	code -
+#
+#>
+######################################################################
 p6df::modules::aws::profile::off() {
   local code="$1"
 
@@ -173,30 +244,6 @@ p6df::modules::aws::profile::off() {
   p6_return_void
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::deps()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::vscodes()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::vscodes::config()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::external::brews()
-#
-#>
 ######################################################################
 #<
 #
@@ -306,27 +353,6 @@ p6df::modules::aws::langs::clones() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::langs()
-#
-#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::home::symlinks()
-#
-#  Environment:	 HOME P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::path::init()
-#
-#  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-#<
-#
 # Function: stream  = p6df::modules::aws::profiles::list()
 #
 #  Returns:
@@ -374,29 +400,3 @@ p6df::modules::aws::prompt::context() {
   p6_return_str "$str"
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::profile::on(profile, code)
-#
-#  Args:
-#	profile -
-#	code -
-#
-#  Environment:	 P6_AWS_ORG
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::profile::off(code)
-#
-#  Args:
-#	code -
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::aws::mcp()
-#
-#>
