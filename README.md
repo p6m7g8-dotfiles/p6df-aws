@@ -17,9 +17,7 @@
 
 ## Summary
 
-p6df module for AWS: CLI tools (`awscli`, `eksctl`, `aws-vault`, etc.), profile
-switching (`P6_DFZ_PROFILE_AWS`, `P6_AWS_ORG`), multi-language SDK installs
-(JS, Python, Go, Ruby, Rust), and MCP server (`@imazhar101/mcp-aws-server`).
+TODO: Add a short summary of this module.
 
 ## Contributing
 
@@ -38,12 +36,8 @@ switching (`P6_DFZ_PROFILE_AWS`, `P6_AWS_ORG`), multi-language SDK installs
 ##### p6df-aws/init.zsh
 
 - `p6df::modules::aws::deps()`
-- `p6df::modules::aws::external::brew()`
-- `p6df::modules::aws::home::symlink()`
-- `p6df::modules::aws::init(_module, dir)`
-  - Args:
-    - _module
-    - dir
+- `p6df::modules::aws::external::brews()`
+- `p6df::modules::aws::home::symlinks()`
 - `p6df::modules::aws::langs()`
 - `p6df::modules::aws::langs::clones()`
 - `p6df::modules::aws::langs::go()`
@@ -52,17 +46,26 @@ switching (`P6_DFZ_PROFILE_AWS`, `P6_AWS_ORG`), multi-language SDK installs
 - `p6df::modules::aws::langs::ruby()`
 - `p6df::modules::aws::langs::rust()`
 - `p6df::modules::aws::mcp()`
-- `p6df::modules::aws::profile::off()`
-- `p6df::modules::aws::profile::on(profile, [aws_org=])`
+- `p6df::modules::aws::path::init(_module, _dir)`
+  - Args:
+    - _module
+    - _dir
+- `p6df::modules::aws::profile::off(code)`
+  - Args:
+    - code
+- `p6df::modules::aws::profile::on(profile, code)`
   - Args:
     - profile
-    - OPTIONAL aws_org - []
+    - code
 - `p6df::modules::aws::vscodes()`
 - `p6df::modules::aws::vscodes::config()`
-- `str str = p6df::modules::aws::prompt::mod()`
-- `stream  = p6df::modules::aws::profiles::list()`
+- `str str = p6df::modules::aws::prompt::context()`
 
 #### p6df-aws/lib
+
+##### p6df-aws/lib/profiles.zsh
+
+- `stream  = p6df::modules::aws::profiles::list()`
 
 ##### p6df-aws/lib/sso.sh
 
@@ -105,6 +108,7 @@ switching (`P6_DFZ_PROFILE_AWS`, `P6_AWS_ORG`), multi-language SDK installs
 .
 ├── init.zsh
 ├── lib
+│   ├── profiles.zsh
 │   ├── sso.sh
 │   └── svc
 │       ├── ec2.sh
@@ -114,7 +118,7 @@ switching (`P6_DFZ_PROFILE_AWS`, `P6_AWS_ORG`), multi-language SDK installs
 ├── README.md
 └── share
 
-5 directories, 6 files
+5 directories, 7 files
 ```
 
 ## Author

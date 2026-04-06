@@ -24,7 +24,11 @@ p6df::modules::aws::deps() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::aws::path::init()
+# Function: p6df::modules::aws::path::init(_module, _dir)
+#
+#  Args:
+#	_module -
+#	_dir -
 #
 #  Environment:	 P6_DFZ_SRC_DIR P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
@@ -348,23 +352,6 @@ p6df::modules::aws::langs::clones() {
   done
 
   p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: stream  = p6df::modules::aws::profiles::list()
-#
-#  Returns:
-#	stream - 
-#
-#>
-######################################################################
-p6df::modules::aws::profiles::list() {
-
-  functions | p6_filter_row_select_regex '^p6_awsa' | p6_filter_column_pluck 1
-
-  p6_return_stream
 }
 
 ######################################################################
